@@ -1,0 +1,45 @@
+﻿@model Presentateur
+@{
+    ViewData["Title"] = "Supprimer le présentateur";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0"><i class="fas fa-trash me-2"></i>Supprimer le présentateur</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Êtes-vous sûr de vouloir supprimer le présentateur suivant ?</p>
+
+                    <dl class="row">
+                        <dt class="col-sm-4">Code</dt>
+                        <dd class="col-sm-8">@Model.CodeP</dd>
+
+                        <dt class="col-sm-4">Nom</dt>
+                        <dd class="col-sm-8">@Model.NomP</dd>
+
+                        <dt class="col-sm-4">Rôle</dt>
+                        <dd class="col-sm-8">@Model.Role?.Libelle</dd>
+
+                        <dt class="col-sm-4">Prix du rôle</dt>
+                        <dd class="col-sm-8">@Model.Role?.Prix.ToString("0.00") €</dd>
+                    </dl>
+
+                    <form asp-action="DeletePresentateur" method="post">
+                        <input type="hidden" asp-for="CodeP" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Presentateurs" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Confirmer la suppression
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

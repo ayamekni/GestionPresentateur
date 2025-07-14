@@ -1,0 +1,128 @@
+﻿@model Numero
+@{
+    ViewData["Title"] = "Ajouter un numéro";
+}
+
+<div class="container mt-4">
+    <!-- Success Message -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0"><i class="fas fa-plus me-2"></i>Ajouter un numéro</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateNumero" method="post" id="createNumeroForm">
+                        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="CodeN" class="form-control" placeholder="Code du numéro" required />
+                            <label asp-for="CodeN">Code du numéro</label>
+                            <span asp-validation-for="CodeN" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Titre" class="form-control" placeholder="Titre du numéro" required />
+                            <label asp-for="Titre">Titre du numéro</label>
+                            <span asp-validation-for="Titre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Duree" class="form-control" placeholder="Durée en minutes" type="number" min="1" max="120" required />
+                            <label asp-for="Duree">Durée (minutes)</label>
+                            <span asp-validation-for="Duree" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <select asp-for="CodeP" class="form-select" required>
+                                <option value="">-- Sélectionner un présentateur --</option>
+                                @if (ViewBag.Presentateurs != null)
+                                {
+                                    @foreach (var presentateur in ViewBag.Presentateurs)
+                                    {
+                                        <option value="@presentateur.CodeP">@presentateur.NomP (@presentateur.Role.Libelle)</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">Aucun présentateur disponible</option>
+                                }
+                            </select>
+                            <label asp-for="CodeP">Présentateur</label>
+                            <span asp-validation-for="CodeP" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="DateRepresentation" class="form-control" type="datetime-local" required />
+                            <label asp-for="DateRepresentation">Date de représentation</label>
+                            <span asp-validation-for="DateRepresentation" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Numeros" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-success" id="submitBtn">
+                                <i class="fas fa-save me-2"></i>Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h5><i class="fas fa-info-circle me-2"></i>Information</h5>
+                </div>
+                <div class="card-body">
+                    <p>Planifiez un nouveau numéro pour votre spectacle. N'oubliez pas de :</p>
+                    <ul>
+                        <li>Choisir un titre accrocheur</li>
+                        <li>Définir une durée réaliste</li>
+                        <li>Programmer à une date future</li>
+                        <li>Assigner le bon présentateur</li>
+                    </ul>
+
+                    <!-- Debug Information -->
+                    <div class="mt-3">
+                        <h6>Debug Info:</h6>
+                        <small>
+                            Presentateurs available: @(ViewBag.Presentateurs != null ? ((IEnumerable<dynamic>)ViewBag.Presentateurs).Count() : 0)
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Add JavaScript debugging
+        document.getElementById('createNumeroForm').addEventListener('submit', function(e) {
+            console.log('Form submission started');
+
+            // Log form data
+            const formData = new FormData(this);
+            for (let [key, value] of formData.entries()) {
+                console.log(key + ': ' + value);
+            }
+
+            // Disable submit button to prevent double submission
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enregistrement...';
+        });
+    </script>
+}

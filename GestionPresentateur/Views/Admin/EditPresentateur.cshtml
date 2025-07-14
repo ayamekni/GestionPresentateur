@@ -1,0 +1,60 @@
+﻿@model Presentateur
+@{
+    ViewData["Title"] = "Modifier le présentateur";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0"><i class="fas fa-edit me-2"></i>Modifier le présentateur</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditPresentateur" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <input type="hidden" asp-for="CodeP" />
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="NomP" class="form-control" placeholder="Nom du présentateur" />
+                            <label asp-for="NomP">Nom du présentateur</label>
+                            <span asp-validation-for="NomP" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <select asp-for="CodeR" class="form-select">
+                                <option value="">-- Sélectionner un rôle --</option>
+                                @if (ViewBag.Roles != null)
+                                {
+                                    @foreach (var role in ViewBag.Roles)
+                                    {
+                                        <option value="@role.CodeR" selected="@(role.CodeR == Model.CodeR ? "selected" : null)">
+                                            @role.Libelle (@role.Prix.ToString("0.00")€)
+                                        </option>
+                                    }
+
+                                }
+                            </select>
+                            <label asp-for="CodeR">Rôle</label>
+                            <span asp-validation-for="CodeR" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Presentateurs" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-warning text-white">
+                                <i class="fas fa-save me-2"></i>Mettre à jour
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

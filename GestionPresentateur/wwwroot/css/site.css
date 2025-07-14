@@ -1,0 +1,201 @@
+/* ==========================
+   Color Variables
+========================== */
+:root {
+    --primary-color: #7d3c98;
+    --primary-hover: #7d3c98;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --light-color: #f4f4f4;
+    --dark-color: #34495e;
+    --text-color: #0a0a0a;
+}
+
+/* ==========================
+   General Layout
+========================== */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('/images/backgr.png') no-repeat center center fixed;
+    background-size: cover; /* Adjust image to cover entire viewport */
+    color: var(--text-color);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding-bottom: 2rem;
+}
+
+.container main {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* ==========================
+   Navbar
+========================== */
+.navbar {
+    box-shadow: "0 2px 6px rgba(0, 0, 0, 0.1)";
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-brand {
+    color: #fff !important;
+}
+
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-brand:hover {
+        color: #e0e0e0 !important;
+    }
+
+.navbar-dark .navbar-toggler {
+    border-color: #fff;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ==========================
+   Buttons
+========================== */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.2s ease;
+}
+
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--primary-hover);
+    }
+
+/* ==========================
+   Hero Section
+========================== */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/images/piccc.png') center center / cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 5rem 1rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .hero-section p {
+        font-size: 1.25rem;
+    }
+
+/* ==========================
+   Cards
+========================== */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+/* ==========================
+   Dropdowns
+========================== */
+.navbar-dark .dropdown-menu {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.navbar-dark .dropdown-item {
+    color: #000 !important;
+}
+
+    .navbar-dark .dropdown-item:hover {
+        background-color: var(--primary-color);
+        color: #fff !important;
+    }
+
+/* ==========================
+   Footer
+========================== */
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 3rem 0 2rem 0;
+}
+
+    .footer .footer-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .footer a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .footer a:hover {
+            color: #cccccc;
+            text-decoration: underline;
+        }
+
+    .footer h5 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .footer ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .footer li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer .text-center {
+        border-top: 1px solid #555;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .footer i {
+        margin-right: 8px;
+        color: var(--primary-color);
+    }
+
+/* ==========================
+   Responsive
+========================== */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 1rem;
+    }
+
+        .hero-section h1 {
+            font-size: 2rem;
+        }
+
+    .footer .col-md-4 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+}

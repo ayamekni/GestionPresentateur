@@ -1,0 +1,22 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Erreur";
+}
+
+<h1 class="text-danger">Erreur.</h1>
+<h2 class="text-danger">Une erreur s'est produite lors du traitement de votre demande.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<div class="alert alert-warning">
+    <h3>Que faire maintenant ?</h3>
+    <ul>
+        <li>Retournez à la <a asp-controller="Home" asp-action="Index">page d'accueil</a></li>
+        <li>Si vous avez besoin d'aide, contactez notre équipe de support à support@cirquefantastique.fr</li>
+    </ul>
+</div>

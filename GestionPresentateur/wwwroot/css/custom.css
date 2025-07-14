@@ -1,0 +1,68 @@
+﻿.border-left-primary {
+    border-left: 0.25rem solid #8e44ad !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #28a745 !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #17a2b8 !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #ffc107 !important;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+.text-gray-300 {
+    color: #d1d3e2 !important;
+}
+
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.sidebar .nav-link {
+    transition: all 0.3s ease;
+}
+
+    .sidebar .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 0.35rem;
+    }
+
+.card {
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+}
+

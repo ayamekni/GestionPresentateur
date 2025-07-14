@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Administration du Cirque</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="d-flex flex-column flex-lg-row">
+        <!-- Sidebar -->
+        <div class="bg-dark text-white p-3" style="width: 280px; min-height: 100vh;">
+            <a class="d-flex text-decoration-none text-white align-items-center mb-4" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-theater-masks fa-2x me-2"></i>
+                <span class="fs-4">Cirque Fantastique</span>
+            </a>
+            <hr />
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")" asp-controller="Admin" asp-action="Dashboard">
+                        <i class="fas fa-chart-line me-2"></i>Tableau de bord
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"].ToString() == "Presentateurs" ? "active" : "")" asp-controller="Admin" asp-action="Presentateurs">
+                        <i class="fas fa-users me-2"></i>Présentateurs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"].ToString() == "Roles" ? "active" : "")" asp-controller="Admin" asp-action="Roles">
+                        <i class="fas fa-theater-masks me-2"></i>Rôles
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"].ToString() == "Numeros" ? "active" : "")" asp-controller="Admin" asp-action="Numeros">
+                        <i class="fas fa-ticket-alt me-2"></i>Numéros
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white @(ViewContext.RouteData.Values["Action"].ToString() == "Users" ? "active" : "")" asp-controller="Admin" asp-action="Users">
+                        <i class="fas fa-user me-2"></i>Utilisateurs
+                    </a>
+                </li>
+            </ul>
+            <hr />
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-2x me-2"></i>
+                    <strong>Admin</strong>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Site public</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="dropdown-item">Déconnexion</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-grow-1 p-4">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Administration</a></li>
+                    @if (ViewContext.RouteData.Values["Action"].ToString() != "Index")
+                    {
+                        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                    }
+                </ol>
+            </nav>
+            
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

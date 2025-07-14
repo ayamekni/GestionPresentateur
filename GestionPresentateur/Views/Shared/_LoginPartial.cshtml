@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @if (!string.IsNullOrEmpty(UserManager.GetUserAsync(User).Result.ProfilePictureUrl))
+                {
+                    <img src="@UserManager.GetUserAsync(User).Result.ProfilePictureUrl" alt="Profile" class="rounded-circle me-1" style="width: 25px; height: 25px; object-fit: cover;" />
+                }
+                else
+                {
+                    <i class="fas fa-user-circle me-1"></i>
+                }
+                @UserManager.GetUserAsync(User).Result.FirstName
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                        <i class="fas fa-user me-2"></i>Mon Profil
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="MyRegistrations">
+                        <i class="fas fa-ticket-alt me-2"></i>Mes Réservations
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Register">
+                <i class="fas fa-user-plus me-1"></i>S'inscrire
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">
+                <i class="fas fa-sign-in-alt me-1"></i>Se connecter
+            </a>
+        </li>
+    }
+</ul>

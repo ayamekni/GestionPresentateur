@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Role>
+@{
+    ViewData["Title"] = "Gestion des rôles";
+    Layout = "_AdminLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-theater-masks me-2"></i>Gestion des rôles</h1>
+    <a asp-action="CreateRole" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i>Ajouter un rôle
+    </a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>Prix</th>
+                            <th>Nb. Présentateurs</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@role.CodeR</td>
+                                <td>@role.Libelle</td>
+                                <td>@role.Prix.ToString("0.00") €</td>
+                                <td>@(role.Presentateurs?.Count ?? 0)</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="RoleDetails" asp-route-id="@role.CodeR" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="EditRole" asp-route-id="@role.CodeR" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="DeleteRole" asp-route-id="@role.CodeR" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center">
+                <i class="fas fa-info-circle fa-3x mb-3"></i>
+                <h4>Aucun rôle trouvé</h4>
+                <p>Commencez par créer des rôles pour vos présentateurs.</p>
+                <a asp-action="CreateRole" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Créer le premier rôle
+                </a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model Role
+@{
+    ViewData["Title"] = "Détails du rôle";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>Détails du rôle</h3>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Code</dt>
+                        <dd class="col-sm-8">@Model.CodeR</dd>
+
+                        <dt class="col-sm-4">Libellé</dt>
+                        <dd class="col-sm-8">@Model.Libelle</dd>
+
+                        <dt class="col-sm-4">Prix</dt>
+                        <dd class="col-sm-8">@Model.Prix.ToString("0.00") €</dd>
+
+                        <dt class="col-sm-4">Présentateurs associés</dt>
+                        <dd class="col-sm-8">@Model.Presentateurs?.Count() ?? 0</dd>
+                    </dl>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="EditRole" asp-route-id="@Model.CodeR" class="btn btn-warning me-md-2">
+                            <i class="fas fa-edit me-2"></i>Modifier
+                        </a>
+                        <a asp-action="Roles" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model Role
+@{
+    ViewData["Title"] = "Ajouter un rôle";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0"><i class="fas fa-plus me-2"></i>Ajouter un rôle</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateRole" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="CodeR" class="form-control" placeholder="Code du rôle" />
+                            <label asp-for="CodeR">Code du rôle</label>
+                            <span asp-validation-for="CodeR" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Libelle" class="form-control" placeholder="Libellé du rôle" />
+                            <label asp-for="Libelle">Libellé du rôle</label>
+                            <span asp-validation-for="Libelle" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Prix" class="form-control" placeholder="Prix" type="number" step="0.01" min="0" />
+                            <label asp-for="Prix">Prix (€)</label>
+                            <span asp-validation-for="Prix" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Roles" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-2"></i>Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h5><i class="fas fa-info-circle me-2"></i>Exemples de rôles</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-star me-2"></i>Clown</li>
+                        <li><i class="fas fa-star me-2"></i>Jongleur</li>
+                        <li><i class="fas fa-star me-2"></i>Acrobate</li>
+                        <li><i class="fas fa-star me-2"></i>Trapéziste</li>
+                        <li><i class="fas fa-star me-2"></i>Dompteur</li>
+                        <li><i class="fas fa-star me-2"></i>Équilibriste</li>
+                        <li><i class="fas fa-star me-2"></i>Magicien</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

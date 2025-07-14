@@ -1,0 +1,159 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-info-circle me-2"></i>@TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="bg-dark text-white p-5 mb-4 rounded-3 hero-section">
+    <div class="container-fluid py-5">
+        <h1 class="display-4 fw-bold">Bienvenue au Cirque Fantastique</h1>
+        <p class="col-md-8 fs-4">Découvrez un monde magique où l'impossible devient possible ! Jongleurs, acrobates, clowns et bien plus vous attendent pour des moments inoubliables.</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg">
+                Créer un compte
+            </a>
+        }
+        else
+        {
+            <a href="#upcoming-shows" class="btn btn-primary btn-lg">
+                Voir les spectacles à venir
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row mb-4" id="upcoming-shows">
+    <div class="col">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h2 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Prochains spectacles</h2>
+            </div>
+            <div class="card-body">
+                @if (Model.UpcomingNumeros != null && Model.UpcomingNumeros.Any())
+                {
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        @foreach (var numero in Model.UpcomingNumeros)
+                        {
+                            <div class="col">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-dark text-white">
+                                        <h5 class="card-title mb-0">@(numero.Titre ?? "Titre non disponible")</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <i class="fas fa-user me-2"></i><strong>Présentateur:</strong> @(numero.Presentateur?.NomP ?? "Non spécifié")<br>
+                                            <i class="fas fa-theater-masks me-2"></i><strong>Rôle:</strong> @(numero.Presentateur?.Role?.Libelle ?? "Non spécifié")<br>
+                                            <i class="fas fa-clock me-2"></i><strong>Durée:</strong> @numero.Duree minutes<br>
+                                            <i class="fas fa-calendar-day me-2"></i><strong>Date:</strong> @numero.DateRepresentation.ToString("dd/MM/yyyy à HH:mm")<br>
+                                            <i class="fas fa-euro-sign me-2"></i><strong>Prix:</strong> @(numero.Presentateur?.Role?.Prix.ToString("0.00") ?? "0.00") €
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            if (Model.UserRegistrations.ContainsKey(numero.CodeN) && Model.UserRegistrations[numero.CodeN])
+                                            {
+                                                <form asp-controller="Home" asp-action="CancelRegistration" method="post">
+                                                    <input type="hidden" name="numeroId" value="@numero.CodeN" />
+                                                    <button type="submit" class="btn btn-outline-danger w-100">
+                                                        <i class="fas fa-times-circle me-1"></i>Annuler ma réservation
+                                                    </button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-controller="Home" asp-action="RegisterForShow" method="post">
+                                                    <input type="hidden" name="numeroId" value="@numero.CodeN" />
+                                                    <button type="submit" class="btn btn-primary w-100">
+                                                        <i class="fas fa-ticket-alt me-1"></i>Réserver
+                                                    </button>
+                                                </form>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Account" asp-action="Login" class="btn btn-primary w-100">
+                                                <i class="fas fa-sign-in-alt me-1"></i>Connectez-vous pour réserver
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>Aucun spectacle à venir pour le moment. Revenez bientôt !
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.PastNumeros != null && Model.PastNumeros.Any())
+{
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h2 class="mb-0"><i class="fas fa-history me-2"></i>Spectacles passés</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Présentateur</th>
+                                    <th>Rôle</th>
+                                    <th>Durée</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var numero in Model.PastNumeros.Take(5))
+                                {
+                                    <tr>
+                                        <td>@(numero.Titre ?? "N/A")</td>
+                                        <td>@(numero.Presentateur?.NomP ?? "N/A")</td>
+                                        <td>@(numero.Presentateur?.Role?.Libelle ?? "N/A")</td>
+                                        <td>@numero.Duree minutes</td>
+                                        <td>@numero.DateRepresentation.ToString("dd/MM/yyyy à HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

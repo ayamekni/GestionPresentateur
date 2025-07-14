@@ -1,0 +1,88 @@
+﻿@model IEnumerable<NumeroRegistration>
+@{
+    ViewData["Title"] = "Mes Réservations";
+}
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0"><i class="fas fa-ticket-alt me-2"></i>Mes Réservations</h2>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>Vous avez <strong>@Model.Count()</strong> réservation(s).
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var registration in Model)
+                {
+                    var numero = registration.Numero;
+                    var isUpcoming = numero.DateRepresentation > DateTime.Now;
+                    var cardClass = isUpcoming ? "border-success" : "border-secondary";
+                    var headerClass = isUpcoming ? "bg-success" : "bg-secondary";
+
+                    <div class="col">
+                        <div class="card h-100 @cardClass">
+                            <div class="card-header @headerClass text-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">@numero.Titre</h5>
+                                    @if (isUpcoming)
+                                    {
+                                        <span class="badge bg-light text-dark">À venir</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-dark">Passé</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i class="fas fa-user me-2"></i><strong>Présentateur:</strong> @numero.Presentateur.NomP<br>
+                                    <i class="fas fa-theater-masks me-2"></i><strong>Rôle:</strong> @numero.Presentateur.Role.Libelle<br>
+                                    <i class="fas fa-clock me-2"></i><strong>Durée:</strong> @numero.Duree minutes<br>
+                                    <i class="fas fa-calendar-day me-2"></i><strong>Date:</strong> @numero.DateRepresentation.ToString("dd/MM/yyyy à HH:mm")<br>
+                                    <i class="fas fa-euro-sign me-2"></i><strong>Prix:</strong> @numero.Presentateur.Role.Prix.ToString("0.00") €<br>
+                                    <i class="fas fa-calendar-check me-2"></i><strong>Réservé le:</strong> @registration.RegistrationDate.ToString("dd/MM/yyyy")
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                @if (isUpcoming)
+                                {
+                                    <form asp-controller="Home" asp-action="CancelRegistration" method="post">
+                                        <input type="hidden" name="numeroId" value="@numero.CodeN" />
+                                        <button type="submit" class="btn btn-outline-danger w-100">
+                                            <i class="fas fa-times-circle me-1"></i>Annuler ma réservation
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary w-100" disabled>
+                                        <i class="fas fa-check-circle me-1"></i>Spectacle passé
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info text-center p-4">
+                <i class="fas fa-info-circle fa-3x mb-3"></i>
+                <h4>Vous n'avez aucune réservation</h4>
+                <p>Consultez notre liste de spectacles pour réserver votre place !</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+                    <i class="fas fa-home me-1"></i>Voir les spectacles
+                </a>
+            </div>
+        }
+    </div>
+</div>

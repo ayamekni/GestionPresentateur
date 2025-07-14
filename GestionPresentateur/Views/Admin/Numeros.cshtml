@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Numero>
+@{
+    ViewData["Title"] = "Gestion des numéros";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="fas fa-ticket-alt me-2"></i>Gestion des numéros</h1>
+        <a asp-action="CreateNumero" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Ajouter un numéro
+        </a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" width="100%" cellspacing="0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Code</th>
+                                <th>Titre</th>
+                                <th>Présentateur</th>
+                                <th>Durée</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var numero in Model)
+                            {
+                                <tr>
+                                    <td>@numero.CodeN</td>
+                                    <td>@numero.Titre</td>
+                                    <td>@numero.Presentateur.NomP</td>
+                                    <td>@numero.Duree min</td>
+                                    <td>@numero.DateRepresentation.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        @if (numero.IsUpcoming)
+                                        {
+                                            <span class="badge bg-success">À venir</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Passé</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="NumeroDetails" asp-route-id="@numero.CodeN" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a asp-action="EditNumero" asp-route-id="@numero.CodeN" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="DeleteNumero" asp-route-id="@numero.CodeN" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle fa-3x mb-3"></i>
+                    <h4>Aucun numéro trouvé</h4>
+                    <p>Créez votre premier numéro de spectacle.</p>
+                    <a asp-action="CreateNumero" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>Créer le premier numéro
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

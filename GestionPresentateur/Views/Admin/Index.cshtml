@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Administration";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+            <h1 class="display-5 fw-bold"><i class="fas fa-cogs me-2"></i>Administration du Cirque</h1>
+            <p class="col-md-8 fs-4">Bienvenue dans l'interface d'administration. Gérez les présentateurs, les rôles et les numéros du cirque.</p>
+            <a asp-action="Dashboard" class="btn btn-primary btn-lg"><i class="fas fa-chart-line me-2"></i>Tableau de bord</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-users me-2"></i>Présentateurs</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Gérez les présentateurs du cirque - ajoutez, modifiez ou supprimez des présentateurs.</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Presentateurs" class="btn btn-primary w-100"><i class="fas fa-users me-2"></i>Gérer les présentateurs</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-theater-masks me-2"></i>Rôles</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Gérez les différents rôles du cirque - jongleurs, clowns, acrobates, etc.</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Roles" class="btn btn-primary w-100"><i class="fas fa-theater-masks me-2"></i>Gérer les rôles</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-ticket-alt me-2"></i>Numéros</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Gérez les numéros du spectacle - planifiez de nouveaux numéros ou modifiez les existants.</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Numeros" class="btn btn-primary w-100"><i class="fas fa-ticket-alt me-2"></i>Gérer les numéros</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gestion du Cirque</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header/Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-theater-masks me-2"></i>Cirque Fantastique
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Accueil</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Administration
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Dashboard">Tableau de bord</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Presentateurs">Présentateurs</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Roles">Rôles</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Numeros">Numéros</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Users">Utilisateurs</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="MyRegistrations">Mes Réservations</a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="d-flex">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main class="container my-4 flex-grow-1">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-auto">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>Cirque Fantastique</h5>
+                    <p>Le cirque qui émerveille petits et grands depuis 1995.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Liens utiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-white text-decoration-none" asp-controller="Home" asp-action="Index">Accueil</a></li>
+                        <li><a class="text-white text-decoration-none" asp-controller="Home" asp-action="Privacy">Confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact</h5>
+                    <p>
+                        <i class="fas fa-map-marker-alt me-2"></i>123 Avenue du Cirque, 75000 Paris<br>
+                        <i class="fas fa-phone me-2"></i>+33 1 23 45 67 89<br>
+                        <i class="fas fa-envelope me-2"></i>contact@cirquefantastique.fr
+                    </p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                &copy; 2025 - Cirque Fantastique - <a class="text-white text-decoration-underline" asp-controller="Home" asp-action="Privacy">Confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

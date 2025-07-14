@@ -1,0 +1,207 @@
+﻿@{
+    ViewData["Title"] = "Tableau de bord";
+}
+
+<div class="container mt-4">
+    <h1><i class="fas fa-chart-line me-2"></i>Tableau de bord administrateur</h1>
+
+    
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Présentateurs
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.PresentateurCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Rôles
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.RoleCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-theater-masks fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Numéros
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NumeroCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-ticket-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Utilisateurs
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.UserCount</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Actions rapides</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="CreateNumero" class="btn btn-success w-100">
+                                <i class="fas fa-plus me-2"></i>Nouveau numéro
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="CreatePresentateur" class="btn btn-info w-100">
+                                <i class="fas fa-user-plus me-2"></i>Nouveau présentateur
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="CreateRole" class="btn btn-warning w-100">
+                                <i class="fas fa-mask me-2"></i>Nouveau rôle
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a asp-action="Users" class="btn btn-secondary w-100">
+                                <i class="fas fa-users me-2"></i>Voir utilisateurs
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Prochains numéros</h6>
+                    <a asp-action="Numeros" class="btn btn-sm btn-primary">Voir tout</a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.UpcomingNumeros != null && ViewBag.UpcomingNumeros.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Présentateur</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var numero in ViewBag.UpcomingNumeros)
+                                    {
+                                        <tr>
+                                            <td>@numero.Titre</td>
+                                            <td>@numero.Presentateur.NomP</td>
+                                            <td>@numero.DateRepresentation.ToString("dd/MM/yyyy HH:mm")</td>
+                                            <td>
+                                                <a asp-action="NumeroDetails" asp-route-id="@numero.CodeN" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a asp-action="EditNumero" asp-route-id="@numero.CodeN" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center">Aucun numéro à venir</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Réservations récentes</h6>
+                    <a asp-action="Users" class="btn btn-sm btn-primary">Voir tout</a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.RecentRegistrations != null && ViewBag.RecentRegistrations.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Utilisateur</th>
+                                        <th>Numéro</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var registration in ViewBag.RecentRegistrations)
+                                    {
+                                        <tr>
+                                            <td>@registration.User.FirstName @registration.User.LastName</td>
+                                            <td>@registration.Numero.Titre</td>
+                                            <td>@registration.RegistrationDate.ToString("dd/MM/yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center">Aucune réservation récente</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
