@@ -1,5 +1,13 @@
 # GestionPresentateur
 
+
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![ASP.NET MVC](https://img.shields.io/badge/ASP.NET%20MVC-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Entity Framework](https://img.shields.io/badge/Entity%20Framework-68217A?style=for-the-badge&logo=nuget&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+
 Bienvenue au **Cirque Fantastique**!  
 GestionPresentateur est une application web avancée de gestion de spectacles de cirque, avec une interface moderne et une expérience utilisateur (UI/UX) soignée. Elle permet la gestion complète des rôles, des présentateurs et des spectacles, tout en offrant une billetterie et un système de réservation en ligne. L’application est dotée d’une authentification robuste basée sur les rôles, dont un rôle administrateur doté de pouvoirs étendus.
 
